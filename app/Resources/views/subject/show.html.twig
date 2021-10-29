@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o przedmiocie</h2>
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Nazwa</th>
+                <td>{{ subject.name }}</td>
+            </tr>
+            <tr>
+                <th>Obowiązkowość</th>
+                <td>{% if subject.obligatory == 0 %} Nie {% endif %} {% if subject.obligatory != 0 %} Tak {% endif %} <!-- {{ subject.obligatory }}--></td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ subject.idsubject }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('subject_index') }}"  class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('subject_edit', { 'id': subject.idsubject }) }}"  class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń"  class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+{% endblock %}

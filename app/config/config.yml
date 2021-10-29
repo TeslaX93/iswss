@@ -1,0 +1,150 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@DyplomowaBundle/Resources/config/services.php" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: pl
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        cookie_lifetime: 7200
+        gc_maxlifetime: 3600
+
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    paths:
+        '%kernel.root_dir%/../custom': customtpl
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }	
+#fos_user
+fos_user:
+     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+     firewall_name: main
+     user_class: AppBundle\Entity\User
+#easy_admin
+easy_admin:
+    site_name: 'Internetowy System Wsparcia Sekretariatu Szkoły'
+    design:
+        brand_color: 'orange'
+        color_scheme: 'light'
+        menu: [ {entity: 'User', label: 'Użytkownicy'}]
+    entities:
+        User:
+            class: AppBundle\Entity\User
+            list:
+                title: 'Użytkownicy'
+                fields:
+                  - id
+                  - {property: 'username', label: 'Użytkownik'}
+                  - {property: 'username_canonical', label: 'Użytkownik (kanon.)'}
+                  - {property: 'email', label: 'E-mail', type: 'email'}
+                  - {property: 'last_login', label: 'Ostatnie logowanie', type: 'datetime'}
+                  - {property: 'roles', label: 'Rola'}
+                  - {property: 'enabled', label: 'Aktywny'}
+                  - {property: 'locked', label: 'Blokada'}
+            edit:
+                fields:
+                    # ...
+                    # { property: 'plainPassword', type_options: { required: false} }
+                   - {property: 'username', label: 'Nazwa użytkownika', type_options: {required: true} }
+                   - {property: 'username_canonical', label: 'Nazwa użytkownika (kanon.)', type_options: {required: true}}
+                   - {property: 'email', label: 'E-mail', type: 'email', type_options: {required: true}}
+                   - {property: 'email_canonical', label: 'E-mail (kanon.)', type: 'email', type_options: {required: true}}
+                   - {property: 'enabled', label: 'Włączony'}
+                   - {property: 'locked', label: 'Zablokowany'}
+                   - {property: 'plainPassword', label: 'Hasło', type: 'text', type_options: {required: false}}
+                   - {property: 'roles', label: 'Rola', type: 'choice', type_options: { multiple: true, choices: { 'Nauczyciel': 'ROLE_TEACHER', 'Sekretariat': 'ROLE_SECR', 'Administrator': 'ROLE_ADMIN' } } }
+                    # ...
+                form_options: { validation_groups: ['Profile'] }
+            new:
+                fields:
+                    # ...
+                    # { property: 'plainPassword', type_options: { required: true} }
+                                       - {property: 'username', label: 'Nazwa użytkownika', type_options: {required: true} }
+                                       - {property: 'username_canonical', label: 'Nazwa użytkownika (kanon.)', type_options: {required: true}}
+                                       - {property: 'email', label: 'E-mail', type: 'email', type_options: {required: true}}
+                                       - {property: 'email_canonical', label: 'E-mail (kanon.)', type: 'email', type_options: {required: true}}
+                                       - {property: 'enabled', label: 'Włączony'}
+                                       - {property: 'locked', label: 'Zablokowany'}
+                                       - {property: 'plainPassword', label: 'Hasło', type: 'text', type_options: {required: true}}
+                                       - {property: 'roles', label: 'Rola', type: 'choice', type_options: { multiple: true, choices: { 'Nauczyciel': 'ROLE_TEACHER', 'Sekretariat': 'ROLE_SECR', 'Administrator': 'ROLE_ADMIN'  } } }
+                    # ...
+                form_options: { validation_groups: ['Registration'] }
+#snappybundle - konfiguracja dla MS Windows:
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     "\"C:\\Program Files (x86)\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
+        options:
+            no-outline: true
+            page-size: A4
+            encoding: UTF-8
+    image:
+        enabled:    true
+        binary:     "\"C:\\Program Files (x86)\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
+        options:    []
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

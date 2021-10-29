@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style type="text/css">
+    input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+    table {border: 1px solid black; !important}
+    td {border: 1px solid black; !important}
+    a {color: black;}
+</style>
+{% endblock %}
+{% block body %}
+
+    <table id="addInfo" class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{ employee.name }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ employee.surname }}</td>
+            </tr>
+            <tr>
+                <th>Tytuł</th>
+                <td>{{ employee.title }}</td>
+            </tr>
+            <tr>
+                <th>Rola</th>
+                <td>{{ employee.role }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ employee.address }}</td>
+            </tr>
+            <tr>
+                <th>Kod pocztowy</th>
+                <td>{{ employee.postalcode }}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{ employee.city }}</td>
+            </tr>
+            <tr>
+                <th>PESEL</th>
+                <td>{{ employee.pesel }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ employee.email }}</td>
+            </tr>
+            <tr>
+                <th>Konto aktywne?</th>
+                <td>
+                    {% if employee.isactive == 0 %}
+                    <!-- {{ employee.isactive }} -->
+                        Nie
+                    {% endif %}
+                    {% if employee.isactive != 0 %}
+                    Tak
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wynagrodzenie</th>
+                <td>{{ employee.salary }} PLN</td>
+            </tr>
+            <tr>
+                <th>Informacje</th>
+                <td>{{ employee.info }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ employee.idemployee }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

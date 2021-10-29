@@ -1,0 +1,120 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Student
+ *
+ * @ORM\Table(name="student", indexes={@ORM\Index(name="fk_student_schoolclass1_idx", columns={"idschoolclass"})})
+ * @ORM\Entity
+ */
+class Student
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surname", type="string", length=45, nullable=false)
+     */
+    private $surname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="street", type="string", length=45, nullable=false)
+     */
+    private $street;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=45, nullable=false)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postalcode", type="string", length=6, nullable=false)
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=45, nullable=false)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pesel", type="string", length=45, nullable=false)
+     */
+    private $pesel;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="beginDate", type="date", nullable=false)
+     */
+    private $begindate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endDate", type="date", nullable=false)
+     */
+    private $enddate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=45, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="isActive", type="integer", nullable=true)
+     */
+    private $isactive;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idstudent", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idstudent;
+
+    /**
+     * @var \AppBundle\Entity\Schoolclass
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Schoolclass")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idschoolclass", referencedColumnName="idschoolclass")
+     * })
+     */
+    private $idschoolclass;
+
+
+}
+

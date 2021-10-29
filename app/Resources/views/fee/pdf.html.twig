@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista opłat</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Kwota</th>
+                <th>Uczeń</th>
+                <th>Klasa</th>
+                <!--<th>ID</th>-->
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fee in fees %}
+        {% for student in students %}
+        {% set studentdata %}{{ student.surname }} {{ student.name }}{% endset %}
+        {% set feedata %}{{ fee.idstudent }}{% endset %}
+        {% if studentdata == feedata %}
+            <tr>
+                <td><a href="{{ path('fee_show', { 'id': fee.idfee }) }}">{{ fee.feename }}</a></td>
+                <td>{{ fee.feevalue }} PLN</td>
+                <!--<td>{{ fee.idfee }}</td>-->
+                <td>{{ fee.idstudent }}</td>
+                <td> {{ student.idschoolclass }}</td>
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('fee_show', { 'id': fee.idfee }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fee_edit', { 'id': fee.idfee }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul id="dataActions">
+        <li>
+            <a href="{{ path('fee_new') }}" class="btn btn-default">Dodaj nową opłatę</a>
+            <a href="{{ path('fee_pdf') }}" class="btn btn-default">Generuj pdf</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,57 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Schoolclass
+ *
+ * @ORM\Table(name="schoolclass", indexes={@ORM\Index(name="fk_schoolclass_school1_idx", columns={"idschool"})})
+ * @ORM\Entity
+ */
+class Schoolclass
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="startYear", type="integer", nullable=false)
+     */
+    private $startyear;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="number", type="integer", nullable=false)
+     */
+    private $number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letter", type="string", length=5, nullable=true)
+     */
+    private $letter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idschoolclass", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idschoolclass;
+
+    /**
+     * @var \AppBundle\Entity\School
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\School")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idschool", referencedColumnName="idschool")
+     * })
+     */
+    private $idschool;
+
+
+}
+

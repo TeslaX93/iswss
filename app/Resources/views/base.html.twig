@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Internetowy System Wsparcia Sekretariatu Szkoły{% endblock %}</title>
+        {% block stylesheets %}
+            <style media="screen">
+
+                #datatbl ul,#dataActions {list-style-type: none; margin: 0; padding: 0;}
+
+                .container-fluid {width: 100%;}
+                body{background-image: url('{{ asset('/bundles/framework/images/school.png') }}');}
+                table {background-color: white; background-image: none;}
+                /* menu */
+                /*.container-fluid {background-color: black;}*/
+                #topPanel h1{font-weight: bold;  color: white;text-shadow: 4px 4px 6px gray;}
+                /*#topPanel {background: rgb(232,86,12); background: linear-gradient(90deg,rgb(255,165,0) 70%, white 100%);}*/
+                #datatbl,#addInfo {background-color: white;}
+                #topPanel {background: rgba(150,97,0,0.5); background: linear-gradient(90deg,rgba(150,97,0,0.5) 60%, transparent 90%);}
+                /*#sidebar {background-color: #16161d;}*/
+                #sidebar {background: rgba(150,97,0,0.5); background: linear-gradient(rgba(150,97,0,0.5) 80%, transparent 100%); padding-bottom: 10%;}
+                #sidebar ul, #sidebar ul li {list-style-type: none; padding: 0;}
+                #sidebar {padding-right: 0;}
+                #sidebar h3 {color: #694400;}
+                #sidebar ul li {display:inline-block; width: 100%; }
+                #sidebar ul li a:hover {background-color: rgba(234,222,199,1); color: #16161d; text-decoration: none; border-bottom: 3px solid #694400;}
+                #sidebar ul li a {text-decoration: none; color: #16161d; display: block; margin: 0; border-bottom: 3px solid #694400; padding-top: 0.5em; padding-bottom: 0.5em; border-top-left-radius: 1em; border-bottom-left-radius: 1em; padding-left: 0.5em;}
+                #addInfo td {padding: 0.5em;}
+                ul, ul li {list-style-type: none;}
+                /*#content {background: linear-gradient(rgb(255,165,0) 0%, #ffe2a8 5%);}*/
+                h2,h3,h1 { font-variant: small-caps;}
+                .lou {float: right; margin-top: -20px;}
+
+            </style>
+            <style media="print">
+                input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none;}
+
+            </style>
+
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+        <!--search/pagination scripts -->
+        <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" ></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" ></script>
+        <!--<script src="{{ asset('bundles/framework/js/table.js') }}"></script>-->
+
+        <!--[if lt IE 9]>
+        <script src="<a title="" original-title="" href="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" ><="" script>"="" rel="nofollow" target="_blank">https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script></a>
+        <script src="<a title="" original-title="" href="https://oss.maxcdn.com/libs/respond.min.jsjs" ><="" script>"="" rel="nofollow" target="_blank">https://oss.maxcdn.com/libs/respond.min.jsjs"></script></a>
+        <![endif]-->
+
+    </head>
+    <body>
+    <div class="container-fluid">
+    {% block panelgorny %}
+        <div class="row">
+        <div id="topPanel" class="col-md-12"><h1>Internetowy System Wsparcia Sekretariatu Szkoły</h1>
+            <span class="lou">Użytkownik: {{ app.user.username }}<br />Typ: {% if is_granted('ROLE_TEACHER') %}Nauczyciel{% elseif is_granted('ROLE_ADMIN') %}Administrator{% else %}Sekretariat{% endif %}</span></div>
+
+        </div>
+    {% endblock %}
+        <div class="row">
+            {% block sidebar %}
+                <div id="sidebar" class="col-md-2">
+                    <h3>Menu</h3>
+                    <ul>
+                        <li><a href="/"><i class="fa fa-paperclip"></i> Zapraszamy!</a></li>
+                        {% if is_granted('ROLE_TEACHER') == false %}<li><a href="/school"><i class="fa fa-building"></i> Szkoły</a></li>{% endif %}
+                        {% if is_granted('ROLE_TEACHER') == false %}<li><a href="/employee"><i class="fa fa-address-book"></i> Pracownicy</a></li>{% endif %}
+                        {% if is_granted('ROLE_TEACHER') == false %}<li><a href="/teacher"><i class="fa fa-book"></i> Nauczyciele</a></li>{% endif %}
+                        <li><a href="/subject"><i class="fa fa-leanpub"></i> Przedmioty</a></li>
+                        <li><a href="/schoolclass"><i class="fa fa-list"></i> Klasy</a></li>
+                        <li><a href="/student"><i class="fa fa-graduation-cap"></i> Uczniowie</a></li>
+                        <li><a href="/studentparent"><i class="fa fa-users"></i> Rodzice</a></li>
+                        {% if is_granted('ROLE_TEACHER') == false %}<li><a href="/fee"><i class="fa fa-money"></i> Opłaty</a></li>{% endif %}
+                        <li><a href="/grade"><i class="fa fa-check"></i> Oceny</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}<li><a href="/admin"><i class="fa fa-lock"></i> Panel administratora</a></li>{% endif %}
+                        <li><a href="/logout"><i class="fa fa-sign-out"></i> Wyloguj (<b>{{ app.user.username }}</b>)</a></li>
+                    </ul>
+                </div>
+            {% endblock %}
+
+            <div id="content" class="col-md-10">
+
+        {% block body %}
+
+            {% endblock %}
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--<a href="javascript:print()">Drukuj stronę</a> |
+                <a href="{{ path('pdfhtml') }}">Generuj PDF</a>-->
+            </div>
+        </div>
+        {% block javascripts %}{% endblock %}
+        </div>
+    </body>
+</html>

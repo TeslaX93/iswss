@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2><i class="fa fa-leanpub"></i> Lista przedmiotów</h2>
+    <div class="searchbox col-xs-2">
+        <form action="{{ path('subject_index') }}" method="get">
+            <div class="input-group">
+                <input name="filter" type="text" placeholder="Filtruj" class="form-control">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Nazwa', 'subject.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Obowiązkowość', 'subject.obligatory') }}</th>
+                <!--<th>ID</th>-->
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subject in pagination %}
+            <tr>
+                <td><a href="{{ path('subject_show', { 'id': subject.idsubject }) }}">{{ subject.name }}</a></td>
+                <td>{% if subject.obligatory == 0 %} Nie {% endif %} {% if subject.obligatory != 0 %} Tak {% endif %} <!-- {{ subject.obligatory }}--></td>
+                <!--<td>{{ subject.idsubject }}</td>-->
+                <td class="actionsColumn">
+
+                            <a href="{{ path('subject_show', { 'id': subject.idsubject }) }}" title="Szczegóły" class="btn btn-default"><i class="fa fa-info-circle fa-lg"></i></a>
+
+                            <a href="{{ path('subject_edit', { 'id': subject.idsubject }) }}" title="Edytuj" class="btn-default btn"><i class="fa fa-pencil-square fa-lg"></i></a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="counter">Łącznie obiektów: {{ pagination.getTotalItemCount }}</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <ul  id="dataActions">
+        <li>
+            <a href="{{ path('subject_new') }}" class="btn btn-primary"><i class="fa fa-plus-square fa-lg"></i> Dodaj nowy przedmiot</a>
+            <a href="{{ path('subject_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf-o fa-lg"></i> Generuj pdf</a>
+            <a href="javascript:print()" class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+        </li>
+    </ul>
+{% endblock %}

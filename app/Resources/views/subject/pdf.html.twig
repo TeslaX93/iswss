@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista przedmiotów</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Obowiązkowy</th>
+                <th>ID</th>
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subject in subjects %}
+            <tr>
+                <td><a href="{{ path('subject_show', { 'id': subject.idsubject }) }}">{{ subject.name }}</a></td>
+                <td>{% if subject.obligatory == 0 %} Nie {% endif %} {% if subject.obligatory != 0 %} Tak {% endif %} <!-- {{ subject.obligatory }}--></td>
+                <td>{{ subject.idsubject }}</td>
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('subject_show', { 'id': subject.idsubject }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('subject_edit', { 'id': subject.idsubject }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul  id="dataActions">
+        <li>
+            <a href="{{ path('subject_new') }}" class="btn btn-default">Dodaj nowy przedmiot</a>
+        </li>
+    </ul>
+{% endblock %}

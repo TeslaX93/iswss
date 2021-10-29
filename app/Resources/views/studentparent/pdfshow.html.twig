@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{ studentparent.parentname }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ studentparent.parentsurname }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ studentparent.parentaddress }}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ studentparent.parentphone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ studentparent.parentemail }}</td>
+            </tr>
+            <tr>
+                <th>Uczeń</th>
+                <td>{{ studentparent.idstudent }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ studentparent.idstudentparent }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

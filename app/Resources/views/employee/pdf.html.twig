@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+    input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista pracowników</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Nazwisko</th>
+            <th>Imię</th>
+            <th>Tytuł</th>
+            <!--<th>Rola</th>-->
+            <th>Adres</th>
+            <th>Kod</th>
+            <th>Miasto</th>
+            <th>E-mail</th>
+            <th>Aktywność</th>
+            <th>Wynagrodzenie</th>
+            <th>Uwagi</th>
+            <!--<th>ID</th>-->
+            <th class="actionsColumn">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+            <tr>
+                <td><a href="{{ path('employee_show', { 'id': employee.idemployee }) }}">{{ employee.surname }}</a></td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.title }}</td>
+                <!--<td>{{ employee.role }}</td>-->
+                <td>{{ employee.address }}</td>
+                <td>{{ employee.postalcode }}</td>
+                <td>{{ employee.city }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{% if employee.isactive == 0 %} Nie {% endif %} {% if employee.isactive != 0 %} Tak {% endif %} <!-- {{ employee.isactive }}--></td>
+                <td>{{ employee.salary }} PLN</td>
+                <td>{{ employee.info }}</td>
+                <!--<td>{{ employee.idemployee }}</td>-->
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('employee_show', { 'id': employee.idemployee }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('employee_edit', { 'id': employee.idemployee }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul id="dataActions">
+        <li>
+            <a href="{{ path('employee_new') }}" class="btn btn-default">Dodaj nowego pracownika</a>
+            <a href="{{ path('employee_pdf') }}" class="btn btn-default">Generuj pdf</a>
+        </li>
+    </ul>
+{% endblock %}
+

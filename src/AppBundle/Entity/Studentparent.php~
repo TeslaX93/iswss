@@ -1,0 +1,71 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Studentparent
+ *
+ * @ORM\Table(name="studentparent", indexes={@ORM\Index(name="fk_studentparent_student1_idx", columns={"idstudent"})})
+ * @ORM\Entity
+ */
+class Studentparent
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parentName", type="string", length=45, nullable=false)
+     */
+    private $parentname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parentSurname", type="string", length=45, nullable=false)
+     */
+    private $parentsurname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parentAddress", type="string", length=45, nullable=false)
+     */
+    private $parentaddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parentPhone", type="string", length=45, nullable=false)
+     */
+    private $parentphone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parentEmail", type="string", length=45, nullable=true)
+     */
+    private $parentemail;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idstudentparent", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idstudentparent;
+
+    /**
+     * @var \AppBundle\Entity\Student
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idstudent", referencedColumnName="idstudent")
+     * })
+     */
+    private $idstudent;
+
+
+}
+

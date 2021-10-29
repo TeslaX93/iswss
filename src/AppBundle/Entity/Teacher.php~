@@ -1,0 +1,53 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Teacher
+ *
+ * @ORM\Table(name="teacher", indexes={@ORM\Index(name="fk_teacher_employee1_idx", columns={"idemployee"}), @ORM\Index(name="fk_teacher_schoolclass1_idx", columns={"idschoolclass"})})
+ * @ORM\Entity
+ */
+class Teacher
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="isActive", type="integer", nullable=false)
+     */
+    private $isactive;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idteacher", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idteacher;
+
+    /**
+     * @var \AppBundle\Entity\Schoolclass
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Schoolclass")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idschoolclass", referencedColumnName="idschoolclass")
+     * })
+     */
+    private $idschoolclass;
+
+    /**
+     * @var \AppBundle\Entity\Employee
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idemployee", referencedColumnName="idemployee")
+     * })
+     */
+    private $idemployee;
+
+
+}
+

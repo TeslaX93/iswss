@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o rodzicu</h2>
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{ studentparent.parentname }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ studentparent.parentsurname }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ studentparent.parentaddress }}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ studentparent.parentphone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><a href="mailto:{{ studentparent.parentemail }}">{{ studentparent.parentemail }}</a></td>
+            </tr>
+            <tr>
+                <th>Uczeń</th>
+                <td>{{ studentparent.idstudent }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ studentparent.idstudentparent }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('studentparent_index') }}"  class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('studentparent_edit', { 'id': studentparent.idstudentparent }) }}"  class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            <a href="{{ path('studentparent_pdfsp', { 'id': studentparent.idstudentparent }) }}" class="btn btn-default"><i class="fa fa-file-pdf-o fa-lg"></i> Wizytówka PDF</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń"  class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+{% endblock %}

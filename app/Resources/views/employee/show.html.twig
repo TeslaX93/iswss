@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o pracowniku</h2>
+
+    <table id="addInfo" class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{ employee.name }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ employee.surname }}</td>
+            </tr>
+            <tr>
+                <th>Tytuł</th>
+                <td>{{ employee.title }}</td>
+            </tr>
+            <tr>
+                <th>Rola</th>
+                <td>{{ employee.role }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ employee.address }}</td>
+            </tr>
+            <tr>
+                <th>Kod pocztowy</th>
+                <td>{{ employee.postalcode }}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{ employee.city }}</td>
+            </tr>
+            <tr>
+                <th>PESEL</th>
+                <td>{{ employee.pesel }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td><a href="mailto:{{ employee.email }}">{{ employee.email }}</a></td>
+            </tr>
+            <tr>
+                <th>Konto aktywne?</th>
+                <td>
+                    {% if employee.isactive == 0 %}
+                    <!-- {{ employee.isactive }} -->
+                        Nie
+                    {% endif %}
+                    {% if employee.isactive != 0 %}
+                    Tak
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wynagrodzenie</th>
+                <td>{{ employee.salary }} PLN</td>
+            </tr>
+            <tr>
+                <th>Informacje</th>
+                <td>{{ employee.info }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ employee.idemployee }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('employee_index') }}"  class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('employee_pdfem', { 'id': employee.idemployee }) }}"  class="btn btn-default"><i class="fa fa-file-pdf-o fa-lg"></i> Wizytówka PDF</a>
+
+            <a href="{{ path('employee_edit', { 'id': employee.idemployee }) }}"  class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń"  class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+{% endblock %}

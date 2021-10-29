@@ -1,0 +1,110 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Employee
+ *
+ * @ORM\Table(name="employee")
+ * @ORM\Entity
+ */
+class Employee
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surname", type="string", length=45, nullable=false)
+     */
+    private $surname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=45, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=45, nullable=false)
+     */
+    private $role;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="street", type="string", length=45, nullable=false)
+     */
+    private $street;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=45, nullable=false)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postalcode", type="string", length=6, nullable=false)
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=45, nullable=false)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pesel", type="string", length=11, nullable=false)
+     */
+    private $pesel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="isActive", type="string", length=45, nullable=false)
+     */
+    private $isactive;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="salary", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $salary;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info", type="string", length=45, nullable=false)
+     */
+    private $info;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idemployee", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idemployee;
+
+
+}
+

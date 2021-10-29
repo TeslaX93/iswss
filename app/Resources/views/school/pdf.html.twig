@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista szkół</h2>
+
+    <table id="datatbl"  class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Typ</th>
+                <th>Patron</th>
+                <th>Adres</th>
+                <th>Kod pocztowy</th>
+                <th>Miasto</th>
+                <th>Województwo</th>
+                <th>Aktywna</th>
+                <th>Informacje</th>
+                <!--<th>ID</th>-->
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr>
+                <td><a href="{{ path('school_show', { 'id': school.idschool }) }}">{{ school.name }}</a></td>
+                <td>{{ school.patron }}</td>
+                <td>{{ school.number }}</td>
+                <td>{{ school.address }}</td>
+                <td>{{ school.postalcode }}</td>
+                <td>{{ school.city }}</td>
+                <td>{{ school.state }}</td>
+                <td>{% if school.isactive == 0 %} Nie {% endif %} {% if school.isactive != 0 %} Tak {% endif %} <!-- {{ school.isactive }}--></td>
+                <td>{{ school.info }}</td>
+                <!--<td>{{ school.idschool }}</td>-->
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('school_show', { 'id': school.idschool }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('school_edit', { 'id': school.idschool }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul id="dataActions">
+        <li>
+            <a href="{{ path('school_new') }}" class="btn btn-default">Dodaj nową szkołę</a>
+            <a href="{{ path('school_pdf') }}" class="btn btn-default">Generuj pdf</a>
+        </li>
+    </ul>
+{% endblock %}

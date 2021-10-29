@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Edycja danych szkoły</h2>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edytuj"   class="btn btn-default"/>
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('school_index') }}"   class="btn btn-default">Powrót</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń"   class="btn btn-default">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

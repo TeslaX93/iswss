@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Subject
+ *
+ * @ORM\Table(name="subject")
+ * @ORM\Entity
+ */
+class Subject
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="obligatory", type="integer", nullable=false)
+     */
+    private $obligatory;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idsubject", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idsubject;
+
+
+}
+

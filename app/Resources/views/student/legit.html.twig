@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Internetowy System Wsparcia Sekretariatu Szkoły</title>
+
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        .legit {width: 7.2cm; height: 10.5cm; border: 1px solid black;}
+        .numerleg {position: absolute; top: 2.5cm; left: 4cm; width: 3cm;}
+        .imienazw {position: absolute; top: 4.5cm; left: 0.5cm; width: 6cm; text-align: center;}
+        .dataur {position: absolute; top: 5.5cm; left: 2.5cm; width: 4cm; text-align: center;}
+        .gender {width: 0.5cm; text-align: center; position: absolute; top: 6.2cm; left: 2cm;}
+        .adres  {position: absolute; top: 6.2cm; left: 3cm; width: 3.5cm; text-align: center;}
+        .adres2 {position: absolute; top: 7cm; left: 0.5cm; width: 6cm; text-align: center;}
+        .datadzis {position: absolute; top: 9cm; left: 0.5cm; width: 3cm; text-align: center;}
+
+    </style>
+</head>
+<body>
+<div class="legit">&nbsp;</div>
+</div>
+<div class="numerleg">{{ student.idstudent }} / {{ "now"|date('Y') }}</div>
+<div class="imienazw">{{ student.name }} {{ student.surname }}</div>
+<div class="dataur">{% if student.birthdate %}{{ student.birthdate|date('d.m.Y') }}{% endif %}</div>
+<div class="gender">{% if student.gender =='k' or student.gender =='K' %} a {% else %} --- {% endif %}</div>
+<div class="adres">{{ student.postalcode }} {{ student.city }}</div>
+<div class="adres2">{{ student.address }}</div>
+<div class="datadzis">{{ "now"|date('d.m.Y') }}</div>
+
+
+</body>
+</html>

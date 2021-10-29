@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8" />
+        <title>Internetowy System Wsparcia Sekretariatu Szkoły</title>
+
+        <style type="text/css">
+                body {font-family: "Times New Roman", serif; margin: 0; padding: 0; font-size: 14pt;}
+                /*div {outline: 1px solid black;}*/
+                #sidebar,h1,h2 {display: none;}
+                .a4paper {min-width: 217 mm; min-height: 297mm; border: 1px solid black;}
+                .imie {position: absolute; top: 9.5cm; left: 4.5cm; text-align: center; width: 11.5cm;}
+                .dataur {position: absolute; top: 11.2cm; left: 3cm; text-align: center; width: 4cm;}
+                .miejsceur {position: absolute; top: 11.2cm; left: 8.2cm; text-align: center; width: 4cm;}
+                .pesel {position: absolute; top: 11.2cm; left: 13.5cm; text-align: center; width: 4cm;}
+                .gender {position: absolute; top: 12.7cm; left: 4.5cm; text-align: center; width: 0.7cm;}
+                .rokszkolny {position: absolute; top: 12.7cm; left: 8.1cm; text-align: center; width: 4cm;}
+                .nazwaszkoly {position: absolute; top: 14cm; left: 3.2cm; text-align: center; width: 14.5cm;} /* sprawdzić interlinię */
+                .nrszkoly {position: absolute; top: 16cm; left: 3.7cm; text-align: center;}
+                .imieszkoly {position: absolute; top: 16cm; left: 7cm; text-align: center; width: 11cm;}
+                .miastoszkola {position: absolute; top: 18cm; left: 3.5cm; text-align: center; width: 5.5cm;}
+                .wojewszkola {position: absolute; top: 18cm; left: 10.5cm; text-align: center; width: 7.3cm;}
+                .miastodok {position: absolute; top: 21.5cm; left: 3cm; text-align: center; width: 6.5cm;}
+                .dnia {position: absolute; top: 21.5cm; left: 10.5cm; text-align: center; width: 6.5cm;}
+                .gradetable {position: absolute; top: 33.7cm; left: 3cm; width: 14.5cm; margin-top: 3cm;}
+                .indivinfo {position: absolute; top: 48.5cm; left: 4cm; width: 14.5cm; text-align: justify;}
+                .achivinfo {position: absolute; top: 55.5cm; left: 4cm; width: 14.5cm; text-align: justify;}
+                .nrswiad {position: absolute; top: 22.5cm; left: 4cm; width: 2cm; text-align: center;}
+                table {width: 100%;}
+                hr {position: absolute; top: 297mm; left: 0; width: 217mm; height: 1px; background-color: silver;}
+                /* hr {display: none; }*/
+        </style>
+</head>
+<body>
+
+<!--<div class="a4paper">&nbsp;</div>-->
+        <div class="imie"> {{ student.name }} {{ student.surname }} </div>
+        <div class="dataur">{% if student.birthdate %}{{ student.birthdate|date('d.m.Y') }}{% endif %}</div>
+        <div class="miejsceur">{{ student.birthplace }}</div>
+        <div class="pesel">{{ student.pesel }}</div>
+        <div class="gender">{% if student.gender =='k' or student.gender =='K' %} a {% else %} --- {% endif %}</div>
+        <div class="rokszkolny">{{ "now"|date_modify("-1 year")|date('Y') }} / {{ "now"|date('Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% if student.gender =='k' or student.gender =='K' %} a {% else %} --- {% endif %}</div>
+
+
+{% for school in school %}
+
+        <div class="nazwaszkoly">Szkoła {{ school.name }}</div>
+        <div class="nrszkoly">{{ school.number }}</div>
+        <div class="imieszkoly">{{ school.patron }}</div>
+        <div class="miastoszkola">{{ school.city }}</div>
+        <div class="wojewszkola">{{ school.state }}</div>
+
+        <div class="miastodok">{{ school.city }}</div>
+        <div class="dnia">{{ "now"|date('d.m.Y') }}</div>
+        <div class="nrswiad">{{ student.idstudent }} / {{ "now"|date('Y') }}</div>
+{% endfor %}
+<div class="gradetable">
+        <table>
+{% for grade in grade %}
+        <tr><td>
+
+{{ grade.idsubject }}
+      </td><td>
+                        {% if grade.grade==1 %} niedostateczny {% endif %}{% if grade.grade==2 %} dopuszczający {% endif %}
+        {% if grade.grade==3 %} dostateczny {% endif %}{% if grade.grade==4 %} dobry {% endif %}{% if grade.grade==5 %} bardzo dobry{% endif %}{% if grade.grade==6 %} celujący {% endif %}
+</td></tr>
+                {% endfor %}
+</table></div>
+<div class="indivinfo"> {{ student.indivinfo }}</div>
+<div class="achivinfo"> {{ student.achivinfo }}</div>
+<br /><br /><br />
+
+
+</body>
+</html>

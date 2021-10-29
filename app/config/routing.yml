@@ -1,0 +1,68 @@
+dyplomowa:
+    resource: "@DyplomowaBundle/Resources/config/routing.php"
+    prefix:   /
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+#FOS and entities config
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+app_employee:
+        resource: "@AppBundle/Resources/config/routing/employee.php"
+        prefix:   /employee
+app_fee:
+        resource: "@AppBundle/Resources/config/routing/fee.php"
+        prefix:   /fee
+app_grade:
+        resource: "@AppBundle/Resources/config/routing/grade.php"
+        prefix:   /grade
+app_school:
+        resource: "@AppBundle/Resources/config/routing/school.php"
+        prefix:   /school
+app_schoolclass:
+        resource: "@AppBundle/Resources/config/routing/schoolclass.php"
+        prefix:   /schoolclass
+app_student:
+        resource: "@AppBundle/Resources/config/routing/student.php"
+        prefix:   /student
+app_studentparent:
+        resource: "@AppBundle/Resources/config/routing/studentparent.php"
+        prefix:   /studentparent
+app_subject:
+        resource: "@AppBundle/Resources/config/routing/subject.php"
+        prefix:   /subject
+app_teacher:
+        resource: "@AppBundle/Resources/config/routing/teacher.php"
+        prefix:   /teacher
+# employee
+#employee_index:
+#    path:      /employee/
+#    defaults:  { _controller: AppBundle:Employee:index }
+
+#employee_new:
+#    path:      /employee/new
+#   defaults:  { _controller: AppBundle:Employee:new }
+
+#employee_show:
+#    path:      /employee/show/{idemployee}
+#    defaults:  { _controller: AppBundle:Employee:show }
+
+#employee_edit:
+#    path:      /employee/edit/{idemployee}
+#    defaults:  { _controller: AppBundle:Employee:edit }
+
+employee_delete:
+     path:      /employee/{id}/delete
+     defaults:  { _controller: AppBundle:Employee:delete }
+
+
+#EAB
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin
+#PDF
+pdfhtml:
+  path: /pdf
+  defaults:   { _controller: AppBundle:Pdf:generate}
+  #   defaults:   { _controller: AppBundle:Pdf:pdfhtml}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o klasie</h2>
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Rok startu</th>
+                <td>{{ schoolclass.startyear }}</td>
+            </tr>
+            <tr>
+                <th>Numer</th>
+                <td>{{ schoolclass.number }}</td>
+            </tr>
+            <tr>
+                <th>Litera</th>
+                <td>{{ schoolclass.letter }}</td>
+            </tr>
+            <tr>
+                <th>Szkoła</th>
+                <td>{{ schoolclass.idschool }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ schoolclass.idschoolclass }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('schoolclass_index') }}" class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('schoolclass_edit', { 'id': schoolclass.idschoolclass }) }}" class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+<br />
+<h3>Lista uczniów w klasie</h3>
+    <table id="addInfo" class="table table-bordered table-striped">
+        <thead>
+        <th>lp</th>
+        <th>Nazwisko i imię</th>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ student.surname }} {{ student.name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

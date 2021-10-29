@@ -1,0 +1,4 @@
+app_employee:
+    resource: "@AppBundle/Resources/config/routing/employee.php"
+    prefix:   /employee
+

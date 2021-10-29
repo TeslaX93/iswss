@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+    h1 {display: none; !important}
+    input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+    table {border: 1px solid black; !important}
+    td {border: 1px solid black; !important}
+    a {color: black;}
+        #pieczec_podpis {padding-top: 4cm;}
+        #podpis {padding-left: 50%;}
+        h2 {text-align: center;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Zaświadczenie</h2>
+
+
+    <p>Zaświadcza się, że uczeń {{ student.name }} {{ student.surname }}, zamieszkały pod adresem:
+        {{ student.address }}, {{ student.postalcode }} {{ student.city }}
+
+        (numer PESEL: {{ student.pesel }}) jest uczniem szkoły: {{ schoolid }}
+
+
+    </p>
+    <p>{% if student.enddate %}Planowana data ukończenia szkoły: {{ student.enddate|date('d.m.Y') }}{% endif %}</p>
+    <p>Data wystawienia zaświadczenia: {{ "now"|date('d.m.Y') }}</p>
+    <div id="pieczec_podpis">
+        <span id="pieczec">Pieczęć</span><span id="podpis">Podpis</span>
+    <div>
+{% endblock %}

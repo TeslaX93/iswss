@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+ {% block title %}Internetowy System Wsparcia Sekretariatu Szkoły{% endblock %}
+
+  {% block body %}
+<h2>Witamy!</h2>
+   <p>Zostałeś poprawnie zalogowany do aplikacji Internetowy System Wsparcia Sekretariatu jako użytkownik {{ app.user.username }}.</p>
+      {% if is_granted('ROLE_ADMIN') %} Posiadasz uprawnienia administratora oraz {% endif %}
+      {% if is_granted('ROLE_SECR') %} Posiadasz uprawnienia pracownika sekretariatu. {% endif %}
+      {% if is_granted('ROLE_TEACHER') %} Posiadasz uprawnienia konta nauczyciela. {% endif %}
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o szkole</h2>
+
+    <table id="addInfo" class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Nazwa</th>
+                <td>{{ school.name }}</td>
+            </tr>
+            <tr>
+                <th>Patron</th>
+                <td>{{ school.patron }}</td>
+            </tr>
+            <tr>
+                <th>Typ</th>
+                <td>{{ school.type }}</td>
+            </tr>
+            <tr>
+                <th>Numer</th>
+                <td>{{ school.number }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ school.address }}</td>
+            </tr>
+            <tr>
+                <th>Kod pocztowy</th>
+                <td>{{ school.postalcode }}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{ school.city }}</td>
+            </tr>
+            <tr>
+                <th>Województwo</th>
+                <td>{{ school.state }}</td>
+            </tr>
+            <tr>
+                <th>Aktywna</th>
+                <td>{% if school.isactive == 0 %} Nie {% endif %} {% if school.isactive != 0 %} Tak {% endif %} <!-- {{ school.isactive }}--></td>
+            </tr>
+            <tr>
+                <th>Informacje</th>
+                <td>{{ school.info }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ school.idschool }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('school_index') }} " class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('school_edit', { 'id': school.idschool }) }}" class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+{% endblock %}

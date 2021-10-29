@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista uczniów</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nazwisko</th>
+                <th>Imię</th>
+                <th>Adres</th>
+                <th>Kod pocztowy</th>
+                <th>Miasto</th>
+                <th>PESEL</th>
+                <th>Początek</th>
+                <th>Koniec</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Aktywny</th>
+                <th>ID</th>
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td><a href="{{ path('student_show', { 'id': student.idstudent }) }}">{{ student.surname }}</a></td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.address }}</td>
+                <td>{{ student.postalcode }}</td>
+                <td>{{ student.city }}</td>
+                <td>{{ student.pesel }}</td>
+                <td>{% if student.birthdate %}{{ student.birthdate|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if student.begindate %}{{ student.begindate|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if student.enddate %}{{ student.enddate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.email }}</td>
+                <td>{% if student.isactive == 0 %} Nie {% endif %} {% if student.isactive != 0 %} Tak {% endif %} <!-- {{ student.isactive }}--></td>
+                <td>{{ student.idstudent }}</td>
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('student_show', { 'id': student.idstudent }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('student_edit', { 'id': student.idstudent }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul  id="dataActions">
+        <li>
+            <a href="{{ path('student_new') }}" class="btn btn-default">Dodaj nowego ucznia</a>
+        </li>
+    </ul>
+{% endblock %}

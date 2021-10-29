@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ student.surname }}</td>
+            </tr>
+            <tr>
+                <th>Płeć</th>
+                <td>{{ student.gender }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ student.address }}</td>
+            </tr>
+            <tr>
+                <th>Kod pocztowy</th>
+                <td>{{ student.postalcode }}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{ student.city }}</td>
+            </tr>
+            <tr>
+                <th>PESEL</th>
+                <td>{{ student.pesel }}</td>
+            </tr>
+            <tr>
+                <th>Data urodzenia</th>
+                <td>{% if student.birthdate %}{{ student.birthdate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Miejsce urodzenia</th>
+                <td>{{ student.birthplace }}</td>
+            </tr>
+            <tr>
+                <th>Data początku</th>
+                <td>{% if student.begindate %}{{ student.begindate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Data końca</th>
+                <td>{% if student.enddate %}{{ student.enddate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ student.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <th>Aktywny</th>
+                <td>
+                {% if student.isactive == 0 %}
+                    <!-- {{ student.isactive }} -->
+                    Nie
+                {% endif %}
+                {% if student.isactive != 0 %}
+                    Tak
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Indywidualny tok nauki</th>
+                <td>{{ student.indivinfo }}</td>
+            </tr>
+            <tr>
+                <th>Szczególne osiągnięcia</th>
+                <td>{{ student.achivinfo }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ student.idstudent }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

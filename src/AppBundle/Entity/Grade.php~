@@ -1,0 +1,53 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Grade
+ *
+ * @ORM\Table(name="grade", indexes={@ORM\Index(name="fk_grade_student1_idx", columns={"idstudent"}), @ORM\Index(name="fk_grade_subject1_idx", columns={"idsubject"})})
+ * @ORM\Entity
+ */
+class Grade
+{
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="grade", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $grade;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idgrade", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idgrade;
+
+    /**
+     * @var \AppBundle\Entity\Subject
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idsubject", referencedColumnName="idsubject")
+     * })
+     */
+    private $idsubject;
+
+    /**
+     * @var \AppBundle\Entity\Student
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idstudent", referencedColumnName="idstudent")
+     * })
+     */
+    private $idstudent;
+
+
+}
+

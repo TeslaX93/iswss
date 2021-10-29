@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista klas szkolnych</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Numer</th>
+                <th>Litera</th>
+                <th>Rok rozpoczęcia</th>
+                <th>Szkoła</th>
+                <th>Uczniów</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for schoolclass in schoolclasses %}
+        {% for howmany in howmanys %}
+        {% if loop.index is even %}
+            <tr>
+                <td><a href="{{ path('schoolclass_show', { 'id': schoolclass.idschoolclass }) }}">{{ schoolclass.number }}</a></td>
+                <td>{{ schoolclass.letter }}</td>
+                <td>{{ schoolclass.startyear }}</td>
+                <td>{{ schoolclass.idschool }}
+                <td>{{ howmany.licznosc }}</td>
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('schoolclass_show', { 'id': schoolclass.idschoolclass }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('schoolclass_edit', { 'id': schoolclass.idschoolclass }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul id="dataActions">
+        <li>
+            <a href="{{ path('schoolclass_new') }}" class="btn btn-default">Dodaj nową klasę</a>
+        </li>
+    </ul>
+{% endblock %}

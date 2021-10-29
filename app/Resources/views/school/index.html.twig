@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2><i class="fa fa-building"></i> Lista szkół</h2>
+<div class="searchbox col-xs-2">
+    <form action="{{ path('school_index') }}" method="get">
+        <div class="input-group">
+            <input name="filter" type="text" placeholder="Filtruj" class="form-control">
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        </div>
+    <table id="datatbl"  class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Nazwa', 'school.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Patron (dop.)', 'school.patron') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Numer', 'school.number') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Adres', 'school.address') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Kod pocztowy', 'school.postalcode') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Miasto', 'school.city') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Województwo', 'school.state') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Aktywna', 'school.isactive') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Info', 'school.info') }}</th>
+                <!--<th>ID</th>-->
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for school in pagination %}
+            <tr>
+                <td><a href="{{ path('school_show', { 'id': school.idschool }) }}">{{ school.name }}</a></td>
+                <td>{{ school.patron }}</td>
+                <td>{{ school.number }}</td>
+                <td>{{ school.address }}</td>
+                <td>{{ school.postalcode }}</td>
+                <td>{{ school.city }}</td>
+                <td>{{ school.state }}</td>
+                <td>{% if school.isactive == 0 %} Nie {% endif %} {% if school.isactive != 0 %} Tak {% endif %} <!-- {{ school.isactive }}--></td>
+                <td>{{ school.info }}</td>
+                <!--<td>{{ school.idschool }}</td>-->
+                <td class="actionsColumn">
+
+
+                            <a href="{{ path('school_show', { 'id': school.idschool }) }}" class="btn btn-default" title="Szczegóły"><li class="fa fa-info-circle fa-lg"></li></a>
+
+
+
+
+                            <a href="{{ path('school_edit', { 'id': school.idschool }) }}" class="btn btn-default" title="Edytuj"><li class="fa fa-pencil-square fa-lg"></li></a>
+
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <div class="counter">Łącznie obiektów: {{ pagination.getTotalItemCount }}</div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    <ul id="dataActions">
+        <li>
+            {% if pagination|length < 1 %}<a href="{{ path('school_new') }}" class="btn btn-primary"><i class="fa fa-plus-square fa-lg"></i> Dodaj nową szkołę</a>{% else %} W systemie może istnieć maksymalnie jedna szkoła. {% endif %}
+            <a href="{{ path('school_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf-o fa-lg"></i> Generuj pdf</a>
+            <a href="javascript:print()" class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+        </li>
+    </ul>
+{% endblock %}

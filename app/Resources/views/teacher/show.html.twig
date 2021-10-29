@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Informacje o nauczycielu</h2>
+
+    <table id="addInfo"  class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Aktywność</th>
+                <td>{% if teacher.isactive == 0 %} Nie {% endif %} {% if teacher.isactive != 0 %} Tak {% endif %} <!-- {{ teacher.isactive }}--></td>
+            </tr>
+            <tr>
+                <th>Nauczyciel</th>
+                <td>{{ teacher.idemployee }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ teacher.idschoolclass }}</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td>{{ teacher.idteacher }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="addActions">
+
+            <a href="{{ path('teacher_index') }}"  class="btn btn-primary"><i class="fa fa-undo fa-lg"></i> Powrót</a>
+
+            <a href="javascript:print()"  class="btn btn-info"><i class="fa fa-print fa-lg"></i> Drukuj</a>
+
+            <a href="{{ path('teacher_edit', { 'id': teacher.idteacher }) }}"  class="btn btn-warning"><i class="fa fa-pencil-square fa-lg"></i> Edytuj</a>
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Usuń"  class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+    </div>
+{% endblock %}

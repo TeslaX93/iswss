@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style type="text/css">
+        input,.btn, i.fa, #sidebar, option, .actionsColumn, ul, ul li, #dataActions, .lou {display:none; !important}
+        table {border: 1px solid black; !important}
+        td {border: 1px solid black; !important}
+        a {color: black;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h2>Lista nauczycieli</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Aktywność</th>
+                <th>Nauczyciel</th>
+                <th>Klasa</th>
+                <th class="actionsColumn">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <td><a href="{{ path('teacher_show', { 'id': teacher.idteacher }) }}">{% if teacher.isactive == 0 %} Nie {% endif %} {% if teacher.isactive != 0 %} Tak {% endif %} <!-- {{ teacher.isactive }}--></a></td>
+                <td>{{ teacher.idemployee }}</td>
+                <td>{{ teacher.idschoolclass }}</td>
+                <td class="actionsColumn">
+                    <ul>
+                        <li>
+                            <a href="{{ path('teacher_show', { 'id': teacher.idteacher }) }}">Szczegóły</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('teacher_edit', { 'id': teacher.idteacher }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul  id="dataActions">
+        <li>
+            <a href="{{ path('teacher_new') }}" class="btn btn-default">Dodaj nowego nauczyciela</a>
+        </li>
+    </ul>
+{% endblock %}

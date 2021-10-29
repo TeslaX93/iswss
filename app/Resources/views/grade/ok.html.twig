@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2><i class="fa fa-check"></i> Lista ocen</h2>
+
+    <table id="datatbl" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Uczeń</th>
+                <th>Klasa</th>
+                <th>Przedmiot</th>
+                <th>Ocena</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grade in grades %}
+            {% for schoolclass in schoolclasses %}
+            <tr>
+                <td><a href="{{ path('grade_show', { 'id': grade.idgrade }) }}">{{ grade.idstudent }}</a></td>
+                <td>{{ schoolclass.number }} {{ schoolclass.letter }}</td>
+                <td>{{ grade.idsubject }}</td>
+                <td>{{ grade.grade }}</td>
+            </tr>
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul id="dataActions">
+        <li>
+            <a href="{{ path('grade_new') }}"  class="btn btn-primary">Dodaj nową ocenę</a>
+            <a href="{{ path('grade_pdf') }}" class="btn btn-warning">Generuj pdf</a>
+            <a href="javascript:print()" class="btn btn-info">Drukuj</a>
+        </li>
+    </ul>
+{% endblock %}
